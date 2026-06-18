@@ -161,12 +161,8 @@ def proxy_search(node_url, query, language="all", weight=1.0):
     """Fetch search results from a SearX node via Jina proxy."""
     search_link = f"{node_url}search?q={query.replace(' ', '+')}&language={language}"
     proxy_url = f"https://r.jina.ai/{search_link}"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml",
-    }
     try:
-        r = requests.get(proxy_url, headers=headers, timeout=12)
+        r = requests.get(proxy_url, timeout=12)
         if r.status_code != 200:
             return [], weight
         body = r.text
