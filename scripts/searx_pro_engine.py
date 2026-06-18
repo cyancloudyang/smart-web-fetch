@@ -277,9 +277,10 @@ def run_pro_search(q_zh, q_en):
     filtered_results = []
     for item in all_results.values():
         title_lower = item["title"].lower()
+        url_lower = item["original_url"].lower()
         domain = urlparse(item["original_url"]).netloc.lower()
         bigram_hit = any(bg in title_lower for bg in query_bigrams)
-        keyword_hit = any(kw in title_lower or kw in domain for kw in query_keywords)
+        keyword_hit = any(kw in title_lower or kw in domain or kw in url_lower for kw in query_keywords)
         if bigram_hit or keyword_hit:
             filtered_results.append(item)
 
